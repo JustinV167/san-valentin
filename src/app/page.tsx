@@ -14,10 +14,10 @@ export default function Home() {
     typeof Audio !== "undefined" && new Audio("/sansTalking.mp3")
   );
   const megalovania = useRef<false | HTMLAudioElement>(
-    typeof Audio !== "undefined" && new Audio("/sansTalking.mp3")
+    typeof Audio !== "undefined" && new Audio("/megalovania.mp3")
   );
   const kirbyOst = useRef<false | HTMLAudioElement>(
-    typeof Audio !== "undefined" && new Audio("/sansTalking.mp3")
+    typeof Audio !== "undefined" && new Audio("/kirbyOst.mp3")
   );
   // const [sansTalking] = useState(() => { if (Audio) return new Audio("/sansTalking.mp3") });
   // const [megalovania] = useState(() => { if (Audio) return new Audio("/megalovania.mp3") });
