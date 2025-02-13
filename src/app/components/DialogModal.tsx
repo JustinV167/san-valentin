@@ -4,12 +4,13 @@ interface paramsDialogModal {
     componentClass?: string;
     color?: string
     text?: string
-    chopTailColor?: string
+    chopTailColor?: string;
+    width:string
 }
 function DialogModal(params: paramsDialogModal) {
     return (
-        <div className='absolute'>
-            <div className={`${params?.componentClass ?? ""} w-full  h-full p-3 z-10 relative ${params?.color ?? "bg-[#FFEFC8]"}  rounded-lg`}>
+        <div className={'absolute '+params.width}>
+            <div className={`${params?.componentClass ?? ""} min-h-32  p-3 z-10 relative ${params?.color ?? "bg-[#FFEFC8]"}  rounded-lg`}>
                 {params?.text}
             </div>
             <div className='relative flex justify-end translate-x-4  '>
