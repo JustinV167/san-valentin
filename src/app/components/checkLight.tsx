@@ -1,6 +1,6 @@
 import React from 'react'
 
-function CheckLight({ onClick, disabled }: { onClick: () => any, disabled: boolean }) {
+function CheckLight({ onClick, disabled }: { onClick: () => undefined, disabled: boolean }) {
     return (
         <label className="relative inline-flex items-center cursor-pointer"
             onClick={onClick}

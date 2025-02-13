@@ -1,6 +1,6 @@
 "use client"
 import DialogModal from "./components/DialogModal";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CorazonesCayendo from "./components/hearthsRain";
 import CheckLight from "./components/checkLight";
 import AcceptView from "./components/acceptView";
@@ -10,9 +10,18 @@ export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
   const [displayText, setDisplayText] = useState("");
   const textToDisplay = "¿Soy yo o esto está como muy oscuro? Por favor enciende la Luz, dale toca el boton para encenderla.";
-  const [sansTalking] = useState(() => new Audio("/sansTalking.mp3"));
-  const [megalovania] = useState(() => new Audio("/megalovania.mp3"));
-  const [kirbyOst] = useState(() => new Audio("/kirbyOst.mp3"));
+  const sansTalking = useRef<false | HTMLAudioElement>(
+    typeof Audio !== "undefined" && new Audio("/sansTalking.mp3")
+  );
+  const megalovania = useRef<false | HTMLAudioElement>(
+    typeof Audio !== "undefined" && new Audio("/sansTalking.mp3")
+  );
+  const kirbyOst = useRef<false | HTMLAudioElement>(
+    typeof Audio !== "undefined" && new Audio("/sansTalking.mp3")
+  );
+  // const [sansTalking] = useState(() => { if (Audio) return new Audio("/sansTalking.mp3") });
+  // const [megalovania] = useState(() => { if (Audio) return new Audio("/megalovania.mp3") });
+  // const [kirbyOst] = useState(() => { if (Audio) return new Audio("/kirbyOst.mp3") });
   const [showText, setShowText] = useState(true)
   const [score, setScore] = useState(0)
 
@@ -21,15 +30,19 @@ export default function Home() {
   useEffect(() => {
     if (isOpen) {
       if (textToDisplay.length != displayText.length) {
-        sansTalking.loop = true;
-        sansTalking.play()
+        if (sansTalking?.current) {
+          sansTalking.current.loop = true;
+          sansTalking.current.play()
+        }
         setTimeout(() => {
           setDisplayText(displayText + textToDisplay[displayText.length])
         }, 100)
       } else {
-        sansTalking.pause()
-        megalovania.loop = true;
-        megalovania.play()
+        if (sansTalking.current && megalovania.current) {
+          sansTalking.current.pause()
+          megalovania.current.loop = true;
+          megalovania.current.play()
+        }
       }
     }
   }, [isOpen, displayText]);
@@ -52,9 +65,12 @@ export default function Home() {
                 if (textToDisplay.length != displayText.length) {
                   return
                 }
-                megalovania.pause()
-                kirbyOst.loop = true;
-                kirbyOst.play()
+                if (megalovania.current && kirbyOst.current) {
+
+                  megalovania.current.pause()
+                  kirbyOst.current.loop = true;
+                  kirbyOst.current.play()
+                }
                 setShowText(false)
               }, 600)
             }}></CheckLight>

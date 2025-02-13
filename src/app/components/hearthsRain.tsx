@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 interface hearthsInterface {
     id: number, src: string, size: number, left: number, animationDuration: number
 }
-const HearthsRain = ({ clickHearth }: { clickHearth: () => any }) => {
+const HearthsRain = ({ clickHearth }: { clickHearth: () => undefined }) => {
     const [hearths, setHearths] = useState<hearthsInterface[]>([]);
     const imageneshearths = [
         '/kirby2.webp',
@@ -66,11 +66,11 @@ const HearthsRain = ({ clickHearth }: { clickHearth: () => any }) => {
                 }
             `}</style>
             {hearths.map(corazon => {
-                let styleHearth = estilosCorazon(corazon)
+                const styleHearth = estilosCorazon(corazon)
                 const animationSpan = styleHearth.animationSpan;
                 return (
                     <span key={corazon.id}
-                        style={styleHearth as any} onAnimationEnd={() => eliminarCorazon(corazon.id)}
+                        style={styleHearth as { top: string }} onAnimationEnd={() => eliminarCorazon(corazon.id)}
                         onClick={() => { clickHearth(); eliminarCorazon(corazon.id) }}>
 
                         <img
